@@ -5,20 +5,38 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Create a cube as an example 3D object
-const geometry = new THREE.BoxGeometry();
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+// Create a basic block texture (you can use an image for more details)
+const textureLoader = new THREE.TextureLoader();
+const blockTexture = textureLoader.load('https://example.com/block_texture.png'); // Replace with your texture URL
 
-// Position the camera
-camera.position.z = 5;
+// Create the ground with block-like cubes
+const blockSize = 1;
+const blocks = [];  // Array to hold all blocks in the game
 
-// Animation loop
+// Function to create a single block
+function createBlock(x, y, z) {
+  const geometry = new THREE.BoxGeometry(blockSize, blockSize, blockSize);
+  const material = new THREE.MeshBasicMaterial({ map: blockTexture });
+  const block = new THREE.Mesh(geometry, material);
+  block.position.set(x, y, z);
+  scene.add(block);
+  blocks.push(block);
+}
+
+// Create a 10x10 grid of blocks (like Minecraft terrain)
+for (let x = -5; x < 5; x++) {
+  for (let z = -5; z < 5; z++) {
+    createBlock(x, 0, z);
+  }
+}
+
+// Position the camera above the scene
+camera.position.set(0, 5, 10);
+camera.lookAt(new THREE.Vector3(0, 0, 0));
+
+// Render loop to animate the scene
 function animate() {
   requestAnimationFrame(animate);
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 
