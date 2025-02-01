@@ -1,0 +1,26 @@
+/* Reset the body's margin and padding */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;  /* Prevents scrollbars */
+  background-color: #1a1a1a;  /* Dark background for the game */
+}
+
+/* Full screen canvas */
+canvas {
+  display: block;  /* Removes any space below the canvas */
+  width: 100vw;     /* Viewport width */
+  height: 100vh;    /* Viewport height */
+}
+
+/* Optional: Add a simple overlay text */
+#game-over-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  display: none;  /* Hidden by default, can be shown with JS */
+}
